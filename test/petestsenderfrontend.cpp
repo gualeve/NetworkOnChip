@@ -10,11 +10,11 @@ PETestSenderFrontEnd::PETestSenderFrontEnd(sc_module_name name) :
 
 void PETestSenderFrontEnd::_threadRun()
 {
-    char receivedChar;
+    char sendChar;
     for (;;) {
-        fifoInput.read(receivedChar);
-        NoCDebug::printDebug(std::string("PE Test Shell Send Char: ") + receivedChar, NoCDebug::NI);
-        _message.push_back(static_cast<unsigned>(receivedChar));
+        sendChar = _message.back();
+        _message.pop_back();
+        NoCDebug::printDebug(std::string("PE Test Shell Send Char: ") + sendChar, NoCDebug::NI);
         frontEndSendEvent();
         wait(backEndReceivedEvent());
     }

@@ -11,8 +11,8 @@ class PETestSenderFrontEnd : public sc_module, public NetworkInterfaceFrontEndBa
     void _threadRun();
 
 public:
-    // IO
-    sc_fifo_in<char> fifoInput;
+    //IO
+    //sc_fifo_out<char> fifoOutput;
 
     PETestSenderFrontEnd(sc_module_name name);
 };

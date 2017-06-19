@@ -8,12 +8,13 @@ PETestReceiverFrontEnd::PETestReceiverFrontEnd(sc_module_name name) :
 
 void PETestReceiverFrontEnd::_threadRun()
 {
-    char sendChar;
+    char receivedChar;
     for (;;) {
-        wait(backEndSendEvent());
-        sendChar = _message.back();
-        _message.pop_back();
-        NoCDebug::printDebug(std::string("PE Test Shell Received Char: ") + sendChar, NoCDebug::NI);
+		wait(backEndSendEvent());
+        receivedChar = fifoInput.read();
+        NoCDebug::printDebug(std::string("PE Test Shell Received Char: ") + receivedChar, NoCDebug::NI);
+        _message.push_back(static_cast<unsigned>(receivedChar));
         frontEndReceivedEvent();
     }
 }
+
